@@ -4,7 +4,7 @@ console.log(`Thank you for using Hello ${Version}\n`)
 
 class Hello {
   greet() {
-    console.log(`Hello at ${new Date()}`)
+    console.log(`Hello at ${new Date().toLocaleTimeString()}`)
   }
 }
 
