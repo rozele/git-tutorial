@@ -3,7 +3,7 @@ const Version = "3.0"
 console.log(`Thank you for using Hello ${Version}\n`)
 
 /**
- * Improving the documentation a bit.
+ * An object to greet the user.
  */
 class Hello {
   greet() {
