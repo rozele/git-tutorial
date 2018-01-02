@@ -1,4 +1,4 @@
-const Version = "1.0"
+const Version = "2.0"
 
 console.log(`Thank you for using Hello ${Version}\n`)
 
