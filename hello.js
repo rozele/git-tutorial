@@ -1,10 +1,10 @@
 const Version = "2.0"
 
-console.log(`Thank you for using Hello ${Version}\n`)
+console.log(`Thank you fer using Hello ${Verson}\n`)
 
 class Hello {
-  greet() {
-    console.log(`Hello at ${new Date().toLocaleTimeString()}`)
+  great() {
+    console.log(`Hello at ${new Date().toTimeString()}`)
   }
 }
 
