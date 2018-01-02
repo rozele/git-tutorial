@@ -1,13 +1,15 @@
+const output = require('./output')
+
 const Version = "3.0"
 
-console.log(`Thank you for using Hello ${Version}\n`)
+output(`Thank you for using Hello ${Version}\n`)
 
 /**
  * An object to greet the user.
  */
 class Hello {
   greet() {
-    console.log(`Hello at ${new Date().toLocaleTimeString().substring(0, 5)}`)
+    output(`Hello at ${new Date().toLocaleTimeString().substring(0, 5)}`, 1)
   }
 }
 
