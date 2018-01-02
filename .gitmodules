@@ -1,0 +1,3 @@
+[submodule "output"]
+	path = output
+	url = https://github.com/rozele/git-tutorial-module
