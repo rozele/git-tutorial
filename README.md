@@ -44,13 +44,13 @@ node hello.js
 # Hello at 12:00:00
 
 # look at commit log
-git log --format=oneline
+git log --oneline
 # Output:
-# b8d8ed003f638e4bd7a07e0880d91779fe56f4fe Use locale time for greeting
-# cac6149affd9682b0e06b2e0e4d0f8bbd6c4a0ee Adds date to greeting
-# e90e23647398b6aa7c1ca43c18ec1a813d80ade4 Bumps version to 2.0
-# 4d388832d64f14ce4c5d358066d73a69923b4e99 Adds hello script
-# 758b7b7181efaa1d024eab629513d4e4b19e2a6a Initial commit
+# b8d8ed0 Use locale time for greeting
+# cac6149 Adds date to greeting
+# e90e236 Bumps version to 2.0
+# 4d38883 Adds hello script
+# 758b7b7 Initial commit
 ```
 
 The current script is on version 2.0, we want to cherry-pick a commit to the `v1.x` branch to add the date to the greeting.
@@ -67,7 +67,7 @@ node hello.js
 # Hello
 
 # cherry-pick the commit from the `ex1` branch
-git cherry-pick cac6149a
+git cherry-pick cac6149
 
 # confirm hello.js works
 node hello.js
@@ -84,7 +84,7 @@ Notice the output is a very long date time string. This is because there were ac
 git reset --hard origin/v1.x
 
 # cherry-pick the commit range from the `ex1` branch
-git cherry-pick e90e2364..b8d8ed00
+git cherry-pick e90e236..b8d8ed0
 
 # confirm hello.js works
 node hello.js
@@ -111,10 +111,10 @@ Maybe you're working on a feature and you realize you didn't switch back to the 
 git checkout ex2-wip
 
 # look at commit log
-git log -n 2 --format=oneline
+git log -n 2 --oneline
 # Output:
-# 6c6ddd0eade9815fe44cc92b4837e7fbe14003e4 WIP
-# b8d8ed003f638e4bd7a07e0880d91779fe56f4fe Use locale time for greeting
+# 6c6ddd0 WIP
+# b8d8ed0 Use locale time for greeting
 
 # reset the WIP commit (6c6ddd0e) so the changes from that commit are unstaged
 git reset HEAD~1
@@ -139,7 +139,7 @@ git stash pop
 
 # resolve the merge conflict with your tool of choice
 # commit the changes (or reset them)
-git commit -m "Irrelevant changes"
+git commit -am "Irrelevant changes"
 
 # look at the list of stashed changes
 git stash list
@@ -177,6 +177,12 @@ git checkout ex3
 # confirm that hello.js is broken
 node hello.js
 # Output: error
+
+# look at commit log
+git log -n 2 --oneline
+# Output:
+# ee498bb Broken WIP
+# b8d8ed0 Use locale time for greeting
 
 # reset the last commit that broke the changes
 git reset --soft HEAD~1
@@ -228,6 +234,7 @@ Your feature branch has fallen behind the remote branch a bit. You could merge t
 git checkout ex5-wip
 
 # look at the commit history from the `ex5` branch
+git branch ex5 origin/ex5
 git log ex5 -n 3 --oneline
 # Output: 
 # 34c86a6 Bumps version to 3.0
@@ -249,9 +256,10 @@ git rebase --skip
 
 # look at the commit history on the `ex5-wip` branch
 git log -n 3 --oneline
-92ce269 Removes seconds from greeting
-34c86a6 Bumps version to 3.0
-b8d8ed0 Use locale time for greeting
+# Output:
+# 92ce269 Removes seconds from greeting
+# 34c86a6 Bumps version to 3.0
+# b8d8ed0 Use locale time for greeting
 ```
 
 ### Other notes
@@ -323,16 +331,31 @@ node hello.js
 # Output:
 # Thank you for using Hello 3.0
 # 
-#   Hello at 17:10
+#   Hello at 12:00
+
+# open the submodule folder
+cd output/
+
+# look at the remote for the submodule folder
+git remote get-url origin
+# Output:
+# https://github.com/rozele/git-tutorial-module
+
+# (optional) if you use SSH, set up your remote to use SSH
+# follow the links below to generate and add an SSH key to your account
+git remote remove origin
+git remote add origin git@github.com:rozele/git-tutorial-module
 ```
 
 ### Other notes
 
-If you only need to take a source code dependency on another project, consider a simpler solution like package management with NPM.
+If you only need to take a source code dependency on another project, consider a simpler solution like package management with NPM. Generally speaking for OSS projects, use the HTTPS URL for the submodule as opposed to the SSH URL.
 
 ### Links
 
 * [git-submodule](https://git-scm.com/docs/git-submodule)
+* [Generating a new SSH key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+* [Adding a new SSH key to your GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/)
 
 ## Example 8 - Existing submodules
 
@@ -356,7 +379,7 @@ node hello.js
 # Output:
 # Thank you for using Hello 3.0
 # 
-#   Hello at 17:10
+#   Hello at 12:00
 ```
 
 ### Other notes
@@ -391,7 +414,11 @@ git log -n 3 --oneline
 # c2bfdd2 Adds documentation to Hello class
 
 # look at the reflog
-git reflog
+git reflog -n 3
+# Output:
+# 4cdf41a HEAD@{0}: commit: Remove junk from README
+# b2d8067 HEAD@{1}: reset: moving to HEAD~2
+# ab2c867 HEAD@{2}: checkout: moving from ex8 to ex9
 
 # checkout the ref prior to the reset command
 git checkout -b ex9-wip HEAD@{2}
