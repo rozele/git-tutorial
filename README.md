@@ -28,7 +28,7 @@ It may also be useful to install Visual Studio Code for editing and Node.js so y
 
 ## Example 1 - Cherry Pick
 
-A useful practice for maintaining stable releases is to keep a master branch where new code is committed and release branches where the stable code lives. [React Native](https://github.com/facebook/react-native) uses this model for managing their releases. If a bug fix or feature is added to the master branch that would be a useful patch for a stable release, that commit is cherry-picked onto the release branch. 
+A useful practice for maintaining stable releases is to keep a master branch where new (but stable) code is committed and release branches where versioned stable code lives. [React Native](https://github.com/facebook/react-native) uses this model for managing their releases. If a bug fix or feature is added to the master branch that would be a useful patch for a stable release, that commit(s) is cherry-picked onto the release branch. Cherry-picking is the process of applying changes in the form of 1 or more commits onto a branch (in this case, the release branch), irrespective of their origin.
 
 First, follow the steps in (Getting Started)[#getting-started]. Then, from the local tutorial folder, checkout the `ex1` example branch and look at the git commit history.
 
@@ -160,6 +160,8 @@ git stash list
 
 Think of stashing as a short-term memory cache. Stashing is not a good place to keep pending features or other work that should go in it's own branch.
 
+For important/non-trivial changes, it's safest to add the changes you'd intended to stash to a new commit on a new branch. This takes a little more effort, but can save you if you end up doing something silly. As long as you don't explicitly run Git's garbage collector (you won't, accidentally), your work will always be recoverable if you've ever encapsulated it within a commit, even if you lose track of it. See Reflog below for details.
+
 ### Links
 
 * [git-stash](https://git-scm.com/docs/git-stash)
@@ -185,6 +187,10 @@ git reset --soft HEAD~1
 #  --mixed results in unstaged changes
 #  --hard results in changes totally reverted
 ```
+
+### Other notes
+
+Keep in mind that `git reset` is one of those commands that will "rewrite history". In this case, you'll be discarding commits that once were part of the current branch. If you've yet to publish these commits to a shared repo / branch (i.e. the master branch of a project's repo on GitHub), this is not an issue. However, if you've already pushed them to a shared branch, do not perform a reset, since others may have derived their own changes on top of them.
 
 ### Links
 
@@ -247,6 +253,10 @@ git log -n 3 --oneline
 34c86a6 Bumps version to 3.0
 b8d8ed0 Use locale time for greeting
 ```
+
+### Other notes
+
+The `git rebase` command will also rewrite history. Under the hood, it does this by replacing the current branch with a copy of the branch you're rebasing onto, and then cherry-picking your new commits from the original branch onto this replacement branch. As an exercise, note the commit ids of your new commits before and after performing a rebase. You'll see that they're different. This is because they have been moved, and now have a different history from their original counterparts.
 
 ### Links
 
