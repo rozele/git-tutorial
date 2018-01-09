@@ -304,6 +304,8 @@ git log -n 2 --oneline
 ### Links
 
 * [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode)
+* [Pull Request Example](https://github.com/Microsoft/react-native-windows/pull/1256)
+* [Active Code Review Example](https://github.com/Microsoft/react-native-windows/pull/1331)
 
 ## Example 7 - New submodules
 
