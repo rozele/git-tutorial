@@ -394,6 +394,8 @@ If you're cloning a repository with submodules, you can just use `git clone --re
 
 ## Example 9 - Reflogs
 
+We're all human, and sometimes we make mistakes. Maybe you squashed a commit that you didn't want to squash. Or, maybe you deleted a branch before pushing to some remote. Regardless of your efforts to shoot yourself in the foot and lose something forever, Git is pretty good at not losing your changes, and that's exactly where reflog can help.
+
 ```
 # checkout the `ex9` branch
 git checkout ex9
